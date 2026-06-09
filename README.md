@@ -1,6 +1,6 @@
-# 🤖 AI Watch
+# 🤖 TheWatcher
 
-> Automated AI research digest — scrapes top academic and community sources daily, summarizes papers with Mistral AI, and delivers a clean HTML email.
+> Automated AI research digest that scrapes top academic and community sources daily, summarizes papers with Mistral AI, and delivers a clean HTML email.
 
 ---
 
@@ -9,7 +9,7 @@
 - **7 sources** across research publications and community newsletters
 - **AI-powered summaries** via Mistral (optional)
 - **Exponential retry** on scraper failures (up to 3 attempts)
-- **Beautiful HTML email** with color-coded sections per source
+- **HTML email** with color-coded sections per source
 - **Easy configuration** — everything in a single `config.py`
 - **Local HTML backup** saved on every run
 
@@ -88,7 +88,7 @@ A `.html` file is always saved locally for inspection.
 ## Project Structure
 
 ```
-veille_ia/
+TheWatcher/
 ├── config.py          # All settings (API keys, SMTP, sources, limits)
 ├── main.py            # Orchestrator
 ├── summarizer.py      # Mistral AI summarization
@@ -148,8 +148,8 @@ Run automatically every morning using Task Scheduler:
 
 ```
 Program : python
-Arguments: C:\path\to\veille_ia\main.py
-Start in : C:\path\to\veille_ia\
+Arguments: C:\path\to\TheWatcher\main.py
+Start in : C:\path\to\TheWatcher\
 Trigger  : Daily at 07:00
 ```
 
