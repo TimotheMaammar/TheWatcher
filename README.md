@@ -1,5 +1,7 @@
 # TheWatcher: AI Research Digest
 
+![Screenshot](Screenshot.png)
+
 TheWatcher is an automated system that aggregates AI research from academic and community sources. It performs daily scraping of twelve distinct sources, processes content through Mistral AI for summarization, and delivers results via formatted HTML emails.
 
 ## Core Functionality
