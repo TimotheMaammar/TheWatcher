@@ -11,7 +11,7 @@ SOURCE_COLORS = {
     "JMLR":                ("#e3f2fd", "#1565c0"),
     "Google Research":     ("#fce4ec", "#c62828"),
     "Meta AI":             ("#e0f7fa", "#00695c"),
-    "Substack":            ("#fff9f0", "#bf4f0f"),
+    "Newsletters":         ("#fff9f0", "#bf4f0f"),
 }
 
 DEFAULT_COLORS = ("#f5f5f5", "#333333")

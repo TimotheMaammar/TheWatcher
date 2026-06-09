@@ -1,23 +1,20 @@
-# 🤖 TheWatcher
+# TheWatcher: AI Research Digest
 
-> Automated AI research digest that scrapes top academic and community sources daily, summarizes papers with Mistral AI, and delivers a clean HTML email.
+TheWatcher is an automated system that aggregates AI research from academic and community sources. It performs daily scraping of twelve distinct sources, processes content through Mistral AI for summarization, and delivers results via formatted HTML emails.
 
----
+## Core Functionality
 
-## Features
+The tool operates across dual source categories. Research publications include arXiv CS preprints, Hugging Face's curated daily papers, Frontiers peer-reviewed articles, JMLR publications, and blogs from Google Research and Meta AI. Community coverage spans six newsletters via RSS: Ahead of AI, Import AI, The Gradient, Interconnects, Ben's Bites, and Last Week in AI.
 
-- **7 sources** across research publications and community newsletters
-- **AI-powered summaries** via Mistral (optional)
-- **Exponential retry** on scraper failures (up to 3 attempts)
-- **HTML email** with color-coded sections per source
-- **Easy configuration** — everything in a single `config.py`
-- **Local HTML backup** saved on every run
+## Resilience Features
+
+Built-in exponential retry logic handles scraper failures across up to three attempts. Mistral API rate limiting is also handled with automatic retries. Users can customize item limits per source, HTTP timeouts, and retry intervals. The system preserves local HTML backups after each execution for inspection purposes.
 
 ---
 
 ## Sources
 
-### 📄 Research & Publications
+### 📄 Research and Publications
 | Source | Type |
 |---|---|
 | [arXiv](https://arxiv.org/list/cs.AI/recent) | CS preprints |
@@ -27,15 +24,15 @@
 | [Google Research Blog](https://research.google/blog/) | Industry research |
 | [Meta AI Blog](https://ai.meta.com/blog/) | Industry research |
 
-### 💬 Community & News
+### 💬 Community and News
 | Source | Type |
 |---|---|
-| [Ahead of AI](https://magazine.sebastianraschka.com) | Newsletter |
-| [Import AI](https://importai.substack.com) | Newsletter |
-| [The Gradient](https://thegradient.pub) | Newsletter |
-| [Interconnects](https://www.interconnects.ai) | Newsletter |
-| [Ben's Bites](https://www.bensbites.com) | Newsletter |
-| [Last Week in AI](https://lastweekin.ai) | Newsletter |
+| [Ahead of AI](https://magazine.sebastianraschka.com) | Newsletter (RSS) |
+| [Import AI](https://importai.substack.com) | Newsletter (RSS) |
+| [The Gradient](https://thegradient.pub) | Newsletter (RSS) |
+| [Interconnects](https://www.interconnects.ai) | Newsletter (RSS) |
+| [Ben's Bites](https://www.bensbites.com) | Newsletter (RSS) |
+| [Last Week in AI](https://lastweekin.ai) | Newsletter (RSS) |
 
 ---
 
@@ -49,7 +46,7 @@ pip install -r requirements.txt
 
 ### 2. Configure
 
-Copy and edit `config.py`:
+Edit `config.py`:
 
 ```python
 MISTRAL_API_KEY = "your_mistral_api_key"
@@ -81,8 +78,6 @@ python main.py --no-mail
 python main.py --no-summary --no-mail
 ```
 
-A `.html` file is always saved locally for inspection.
-
 ---
 
 ## Project Structure
@@ -102,7 +97,7 @@ TheWatcher/
     ├── jmlr.py
     ├── google_research.py
     ├── meta_ai.py
-    └── substack.py
+    └── rss_feeds.py
 ```
 
 ---
@@ -112,7 +107,7 @@ TheWatcher/
 | Variable | Default | Description |
 |---|---|---|
 | `MAX_ITEMS_PER_SOURCE` | `20` | Max articles per research source |
-| `MAX_ITEMS_PER_FEED` | `4` | Max articles per Substack feed |
+| `MAX_ITEMS_PER_FEED` | `4` | Max articles per newsletter feed |
 | `MISTRAL_MODEL` | `mistral-small-latest` | Mistral model used for summaries |
 | `REQUEST_TIMEOUT` | `15` | HTTP timeout in seconds |
 | `RETRY_MAX` | `3` | Max retry attempts per source |
@@ -131,11 +126,11 @@ SOURCES_RESEARCH = {
 }
 ```
 
-### Adding a Substack feed
+### Adding a newsletter feed
 
 ```python
-SUBSTACK_FEEDS = [
-    ("My Newsletter", "https://mynewsletter.substack.com/feed"),
+RSS_FEEDS = [
+    ("My Newsletter", "https://mynewsletter.com/feed"),
     # ...
 ]
 ```
@@ -147,7 +142,7 @@ SUBSTACK_FEEDS = [
 Run automatically every morning using Task Scheduler:
 
 ```
-Program : python
+Program  : python
 Arguments: C:\path\to\TheWatcher\main.py
 Start in : C:\path\to\TheWatcher\
 Trigger  : Daily at 07:00
@@ -155,12 +150,7 @@ Trigger  : Daily at 07:00
 
 ---
 
-## ⚠️ Security Note
+## Security Note
 
 `config.py` contains sensitive credentials. **Never commit it to a public repository.**  
-Add it to `.gitignore`:
-
-```
-config.py
-*.html
-```
+It is already listed in `.gitignore`.

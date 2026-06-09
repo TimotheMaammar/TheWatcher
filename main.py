@@ -15,7 +15,7 @@ from config import (
     RETRY_MAX, RETRY_DELAY,
 )
 from email_builder import build_html
-from scrapers import arxiv, huggingface, frontiers, jmlr, google_research, meta_ai, substack
+from scrapers import arxiv, huggingface, frontiers, jmlr, google_research, meta_ai, rss_feeds
 
 SCRAPERS_RESEARCH = {
     "arxiv":           (arxiv,           "arXiv"),
@@ -27,7 +27,7 @@ SCRAPERS_RESEARCH = {
 }
 
 SCRAPERS_COMMUNITY = {
-    "substack": (substack, "Substack"),
+    "rss_feeds": (rss_feeds, "Newsletters"),
 }
 
 # ── Retry ─────────────────────────────────────────────────────────────────────
@@ -76,7 +76,7 @@ def run_scrapers(scraper_map: dict, source_flags: dict, use_summary: bool) -> tu
         print(f"{len(items)} articles")
 
         # Substack items are summaries themselves — skip to avoid wasting tokens
-        skip_summary = (display_name == "Substack")
+        skip_summary = (display_name == "Newsletters")
 
         if use_summary and not skip_summary:
             for i, item in enumerate(items):

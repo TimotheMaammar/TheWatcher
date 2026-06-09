@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Aggregates multiple Substack/RSS feeds into a single article list."""
+"""Aggregates multiple RSS newsletter feeds into a single article list."""
 import re
 import requests
 import xml.etree.ElementTree as ET
-from config import REQUEST_TIMEOUT, MAX_ITEMS_PER_FEED, SUBSTACK_FEEDS
+from config import REQUEST_TIMEOUT, MAX_ITEMS_PER_FEED, RSS_FEEDS
 
-SOURCE_NAME = "Substack"
+SOURCE_NAME = "Newsletters"
 
 def _parse_feed(name: str, url: str) -> list[dict]:
     resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers={"User-Agent": "Mozilla/5.0"})
@@ -59,9 +59,9 @@ def _parse_feed(name: str, url: str) -> list[dict]:
 
 def fetch() -> list[dict]:
     all_articles = []
-    for name, url in SUBSTACK_FEEDS:
+    for name, url in RSS_FEEDS:
         try:
             all_articles.extend(_parse_feed(name, url))
         except Exception as e:
-            print(f"    [substack] Error on '{name}': {e}")
+            print(f"    [rss] Error on '{name}': {e}")
     return all_articles
