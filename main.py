@@ -8,6 +8,9 @@ from datetime import date
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 from config import (
     SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS,
     MAIL_FROM, MAIL_TO,
