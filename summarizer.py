@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Article summarization via Mistral AI, with Gemini as backup."""
-import re
+import re 
 import time
 from mistralai.client import Mistral
 from google import genai
